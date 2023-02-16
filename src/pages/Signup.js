@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react'
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -31,16 +33,52 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Signup() {
+
+  const [newUser, setNewUser] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+    registrationErrors: ""
+  })
+
     const navigate = useNavigate();
+    const handleChange = ({target: {name, value}}) => {
+      setNewUser({...newUser, [name]: value})
+    }
+
   const handleSubmit = (event) => {
+    // fetch("http://localhost:9292/signup",{
+    //       method: "POST",
+    //       headers: {
+    //           "Content-Type": "application/json"
+    //       },
+    //       body: JSON.stringify(newUser)
+    //   })
+    //   .then(resp => {
+    //       if (resp.ok) {
+    //           resp.json().then(userObj => {
+    //             setNewUser(userObj.user)
+    //             setMessage("User successfully logged in!")
+    //             return navigateHome("/usersignin")
+    //           })
+    //       } else {
+    //           resp.json().then(messageObj => setMessage(messageObj.message))
+    //       }})
+
+
+
     event.preventDefault();
-    navigate("/tdee-calculator")
+    
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+    navigate("/tdee-calculator")
   };
+
 
   return (
     <ThemeProvider  theme={theme}>
@@ -73,6 +111,8 @@ export default function Signup() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  value={newUser.first_name}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -83,6 +123,8 @@ export default function Signup() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  value={newUser.last_name}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -93,6 +135,8 @@ export default function Signup() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={newUser.email}
+                  onChange={handleChange}
                   
                 />
               </Grid>
@@ -105,12 +149,27 @@ export default function Signup() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={newUser.password}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password_confirmation"
+                  label="Password confirmation"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  value={newUser.password_confirmation}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="Keep me logged in"
                 />
               </Grid>
             </Grid>
