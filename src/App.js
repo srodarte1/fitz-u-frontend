@@ -13,6 +13,7 @@ import Results from './pages/Results'
 import Account from './pages/Account'
 import Support from './pages/Support'
 import TDEE from './pages/TDEE'
+
 const App = () => {
   return (
     <Box width="400px" sx={{ width: { x1: '1488px'}}} m="auto">
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/account" element={<Account />} />
         <Route path="/results" element={<Results />} />
         <Route path="/tdee-calculator" element={<TDEE />} />
+        
     </Routes>
     <Footer />
     </Box>

@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+// import {Context} from '../Context'
+// import {useState, useContext} from 'react'
 
 function Copyright(props) {
   return (
@@ -31,15 +33,35 @@ const theme = createTheme();
 
 export default function Login() {
     const navigate = useNavigate();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    navigate("/account")
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    
+  //   const {handleLogin} = useContext(Context)
+
+  //   const [formData, setFormData] = useState({
+  //     email: "",
+  //     password: "",
+  // });
+
+  // function handleChange(e) {
+  //   setFormData({...formData,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // }
+  // const handleChange = ({target: {name, value}}) => {
+  //     setFormData(currentUser => ({
+  //         ...currentUser,
+  //         [name]: value
+  //     }))
+  // }
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   navigate("/account")
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -59,8 +81,10 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Login
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" /*onSubmit={(e) => handleLogin(e, formData)}  */ noValidate sx={{ mt: 1 }}>
             <TextField
+            // value={formData.email}
+            // onChange={handleChange}
               margin="normal"
               required
               fullWidth
@@ -71,6 +95,8 @@ export default function Login() {
               autoFocus
             />
             <TextField
+            // value={formData.password}
+            // onChange={handleChange}
               margin="normal"
               required
               fullWidth

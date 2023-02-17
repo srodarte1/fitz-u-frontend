@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'
-import axios from 'axios';
+
 
 function Copyright(props) {
   return (
@@ -76,7 +76,7 @@ export default function Signup() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    navigate("/tdee-calculator")
+    navigate("/account")
   };
 
 
