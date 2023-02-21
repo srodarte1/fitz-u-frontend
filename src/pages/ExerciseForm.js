@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const ExerciseForm = ({  setExercises }) => {
+  const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     tempo: '',
@@ -10,7 +11,7 @@ const ExerciseForm = ({  setExercises }) => {
   function handleSubmit(event) {
     event.preventDefault();
 
-    fetch('http://localhost:3000/exercises', {
+    fetch('/exercises', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
@@ -28,7 +29,7 @@ const ExerciseForm = ({  setExercises }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="exercise-form" onSubmit={handleSubmit}>
       <label>
         Name:
         <input type="text" name="name" value={formData.name} onChange={event => setFormData({ ...formData, name: event.target.value })} />

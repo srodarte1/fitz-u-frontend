@@ -1,3 +1,17 @@
+Fitz-U-Fitness 
+
+
+The Workout App allows users to perform the following actions:
+
+Register a new account
+Log in to an existing account
+View a list of all available exercises
+Create a new exercise
+Create a new routine
+Add exercises to a routine
+Edit and delete existing exercises and routines
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -30,6 +44,7 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
+
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 

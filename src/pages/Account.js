@@ -1,37 +1,31 @@
 import React from 'react'
 // import { Eventcalendar, getJson, toast } from '@mobiscroll/react'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import EachRoutine from './EachRoutine'
 import EachExercise from './EachExercise.js';
 import TDEE from './TDEE'
 import ExerciseForm from './ExerciseForm'
 import RoutineForm from './RoutineForm'
+import {Context} from '../Context'
+// import {useNavigate} from 'react-router-dom'
 
-const Account = ({user, setUser}) => {
-    
-    const [routines, setRoutines] = useState([])
-    const [exercises, setExercises] = useState([])
-    const [currentUser, setCurrentUser] = useState([])
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const r = await fetch("http://localhost:3000/users/1")
-          const data = await r.json()
-          setCurrentUser(data)
-          
-        } catch (e) {
-          alert(e)
-        }
-      }
-      fetchData()
-      }, [])
+const Account = () => {
+    // const navigate = useNavigate()
+    const [routines, setRoutines] = useState(null)
+    const [exercises, setExercises] = useState(null)
+    const {user, handleDelete} = useContext(Context)
+
+
+    // useEffect(() => {
+    //   if(!user) {navigate('/login')}
+    //   }, [user, navigate])
 
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const r = await fetch("http://localhost:3000/routines")
+          const r = await fetch("/routines")
           const data = await r.json()
           setRoutines(data)
           
@@ -39,43 +33,47 @@ const Account = ({user, setUser}) => {
           alert(e)
         }
       }
-      fetchData()
-      }, [])
+      if(user){fetchData()}
+        
+        }, [user])
 
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const r = await fetch("http://localhost:3000/exercises")
+            const r = await fetch("/exercises")
             const data = await r.json()
             setExercises(data)
            
           } catch (e) {
             alert(e)
           }
-        }
-        fetchData()
-        }, [])
-        const handleDelete = (e) => {
-          e.preventDefault()
-         fetch(`http://localhost:3000/users/${user.id}`, {method: "DELETE"})
-          .then(() => setUser(null))
-          
-          
-        }
+        } 
+        if(user){fetchData()}
+        
+        }, [user])
 
-        const mappedExercises = exercises.map(exercise => <EachExercise {...exercise} key = {exercise.id} />)
-        const mappedRoutines = routines.map(routine => <EachRoutine {...routine} key = {routine.id} />)
+        
+
+        const mappedExercises = exercises && exercises.map(exercise => ( <div><EachExercise {...exercise} key = {exercise.id}  className="parent-container"/></div>))
+        const mappedRoutines = routines && routines.map(routine => (
+          <div key={routine.id} className="parent-container">
+            <EachRoutine {...routine}/></div>))
+        
+        if(!user) return <h3>Loading...</h3>
 
   return (
     <>
-    <h2>Hello, {currentUser.first_name}</h2>
-    <TDEE currentUser={currentUser}/>
+    <h2>Hello, {user.first_name}</h2>
+    <TDEE currentUser={user}/>
     {/* <h3>TDEE: 1200 cal/day</h3>
     <h3>H20: 3.5 L</h3> */}
     <br></br>
-    <h3>Today's Routine</h3>
-    {mappedRoutines}
+    <div className="routine-container">
+    <h3>Your Routines</h3>
+    <div>{mappedRoutines}</div>
+    
     <RoutineForm setRoutines={setRoutines}/>
+    </div>
     {/* <CreateRoutine exercises={exercises}/> */}
     <br></br>
     <br></br>
@@ -95,7 +93,8 @@ const Account = ({user, setUser}) => {
     <br></br>
     <div>
       <ExerciseForm setExercises={setExercises}/>
-      {mappedExercises}
+      <div className="card-container">{mappedExercises}</div>
+      
     {/* <ul>
         <li><a href="#">Warmup</a></li>
         <li><a href="#">Glute Activation</a></li>

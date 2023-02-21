@@ -29,7 +29,7 @@ const RoutineForm = ({setRoutines}) => {
       }
     
       return (
-        <form onSubmit={handleSubmit}>
+        <form className="new-routine-form" onSubmit={handleSubmit}>
           <label>
             Name:
             <input type="text" name="name" value={formData.name} onChange={event => setFormData({ ...formData, name: event.target.value })} />

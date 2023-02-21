@@ -12,8 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react'
+// import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react'
+import {Context} from '../Context'
 
 
 function Copyright(props) {
@@ -34,6 +35,8 @@ const theme = createTheme();
 
 export default function Signup() {
 
+  const {handleSignup} = useContext(Context)
+
   const [newUser, setNewUser] = useState({
     first_name: "",
     last_name: "",
@@ -43,41 +46,11 @@ export default function Signup() {
     registrationErrors: ""
   })
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+
     const handleChange = ({target: {name, value}}) => {
       setNewUser({...newUser, [name]: value})
     }
-
-  const handleSubmit = (event) => {
-    // fetch("http://localhost:9292/signup",{
-    //       method: "POST",
-    //       headers: {
-    //           "Content-Type": "application/json"
-    //       },
-    //       body: JSON.stringify(newUser)
-    //   })
-    //   .then(resp => {
-    //       if (resp.ok) {
-    //           resp.json().then(userObj => {
-    //             setNewUser(userObj.user)
-    //             setMessage("User successfully logged in!")
-    //             return navigateHome("/usersignin")
-    //           })
-    //       } else {
-    //           resp.json().then(messageObj => setMessage(messageObj.message))
-    //       }})
-
-
-
-    event.preventDefault();
-    
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    navigate("/account")
-  };
 
 
   return (
@@ -99,13 +72,13 @@ export default function Signup() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box  component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box  component="form" noValidate onSubmit={(e) => handleSignup(e, newUser)} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
                 
                   autoComplete="given-name"
-                  name="firstName"
+                  name="first_name"
                   required
                   fullWidth
                   id="firstName"
@@ -121,7 +94,7 @@ export default function Signup() {
                   fullWidth
                   id="lastName"
                   label="Last Name"
-                  name="lastName"
+                  name="last_name"
                   autoComplete="family-name"
                   value={newUser.last_name}
                   onChange={handleChange}
@@ -175,7 +148,7 @@ export default function Signup() {
             </Grid>
             <Button
               type="submit"
-              
+             
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

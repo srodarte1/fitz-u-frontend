@@ -97,3 +97,58 @@ body {
     background: #6f48eb;
     color: white;
    }
+   .card-container {
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    flex-basis: 300px;
+  }
+  
+  .parent-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+.exercise-container{
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    flex-basis: 300px;
+}  
+.exercise-form{
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    flex-basis: 300px;
+}
+.new-routine-form{
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    flex-basis: 300px;
+}
+.tdee-calculator{
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    flex-basis: 300px;
+}
+.routine-container{
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    flex-basis: 300px;
+}
+.add-exercise{
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    flex-basis: 300px;
+}
